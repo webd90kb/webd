@@ -1,0 +1,40 @@
+2024/02/23
+Fix popup 127.0.0.1 instead of real ip in some situations.
+Fix stuck in folder upload mode even after ctrl/shift released.
+
+2023/06/04
+Rename packages name with toolchains name.
+Fix some toolchain's misconfiguration, which lead to unusable binary.
+Add support for drag-drop upload and folder upload. 
+
+2022/05/12
+Fix a issue when rename a file's name with question mark(?). 
+
+2022/03/27
+Fix a potential security problem.
+Add support for platform armv6.
+
+2022/01/27
+Fix unexpected quit when upload file to jffs2 filesystem.
+
+2022/01/24
+Fix unexpected quit on windows.
+Add back web player, but not enabled by default.
+
+2022/01/10
+Fix UI mess up when multiple files selected to upload at once.
+
+2022/01/05
+Fix upload error when file > 4G, 64bits versions not affected. Thanks for Mover.
+
+2021/12/02
+Some minor UI correction.
+Add installation script for Android.
+
+2021/11/30
+Fix for __libc_start_main@@GLIBC_2.34
+Fix parameter "-c".
+
+2021/11/29
+Try fix rename() error on Android.
+Fix guest's permission settings.
