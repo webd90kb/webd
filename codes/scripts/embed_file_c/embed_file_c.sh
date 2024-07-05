@@ -1,5 +1,6 @@
 #!/bin/bash
 # From https://webd.cf/blogs/embed_files_into_executable_program.html
+# https://github.com/webd90kb/webd/tree/master/codes/scripts/embed_file_c
 dir2c(){
 	file2c_str(){
 		hexdump -v -e '32/1 "_x%02X" "\n"' "${1}" | sed 's/_/\\/g; s/\\x  //g; s/.*/"&"/'
