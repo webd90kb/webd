@@ -1,4 +1,6 @@
-### Usage
+- Embed the resource files into the executable program. For C language.
+- Detail: https://webd.cf/blogs/embed_files_into_executable_program.html
+
 ```bash
 chmod +x embed_file_c.sh
 
