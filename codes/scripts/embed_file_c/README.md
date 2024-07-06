@@ -1,4 +1,4 @@
-- Embed the resource files into the executable program. For C language.
+- Embed the resource files(with directory structure) into the executable program. For C language.
 - Detail: https://webd.cf/blogs/embed_files_into_executable_program.html
 
 ```bash
