@@ -1,4 +1,4 @@
-### Webd a 90KB lightweight web file sharing/managing server.
+### Webd a 90KB lightweight web file sharing/managing server. (Not OpenSource)
 
 I'm not good at english or bullsh*t, so this is what ChatGPT said about webd:
 > Looking for a simple, secure, and efficient cloud storage solution? Check out Webd! Webd is a free, self-hosted web-based file storage platform that’s incredibly lightweight—less than 90KB! Host it on your own server for complete control over your data. With its user-friendly interface, no registration requirement, and secure sharing options, Webd makes file management a breeze. Easily upload, organize, and share files with unique links. Perfect for individuals and small businesses who prioritize privacy and ease of use. Visit Webd to get started!
