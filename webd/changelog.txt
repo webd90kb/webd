@@ -1,3 +1,6 @@
+2024/07/11
+Revert to use WinAPI GetAdaptersAddresses() to get ip address on windows.
+
 2024/02/23
 Fix popup 127.0.0.1 instead of real ip in some situations.
 Fix stuck in folder upload mode even after ctrl/shift released.
