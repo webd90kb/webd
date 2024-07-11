@@ -5,7 +5,7 @@ I'm not good at english or bullsh*t, so this is what ChatGPT said about webd:
 
 - It's a tiny httpd/webserver, file list server, file manage server.
 - Flexible permission control, users authentication.
-- Multiple platforms support, Windows(Win7 and above), Linux, OpenWrt and Armbian, and Android if use "adb shell".
+- Multiple platforms support, Windows(Win7 and above), Linux, OpenWrt and Armbian, Android(need "adb shell").
 - Watch movie files stored on your computer from your phone.
 - Easy to share files, transfer files between Phone and PC.
 - Support files upload, drag-and-drop upload, folders upload.
