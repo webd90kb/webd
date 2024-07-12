@@ -1,7 +1,7 @@
 ### Webd a 90KB lightweight web file sharing/managing server. (Not OpenSource)
 
-I'm not good at english or bullsh*t, so this is what ChatGPT said about webd:
-> Looking for a simple, secure, and efficient cloud storage solution? Check out Webd! Webd is a free, self-hosted web-based file storage platform that’s incredibly lightweight—less than 90KB! Host it on your own server for complete control over your data. With its user-friendly interface, no registration requirement, and secure sharing options, Webd makes file management a breeze. Easily upload, organize, and share files with unique links. Perfect for individuals and small businesses who prioritize privacy and ease of use. Visit Webd to get started!
+### [Download Binaries](https://github.com/webd90kb/webd/tree/master/webd/20240223)
+[![image](https://github.com/webd90kb/webd/blob/gh-pages/webd/webd_images/webd.icon.png)](https://github.com/webd90kb/webd/tree/master/webd/20240223)
 
 - It's a tiny httpd/webserver, file list server, file manage server.
 - Flexible permission control, users authentication.
@@ -9,12 +9,13 @@ I'm not good at english or bullsh*t, so this is what ChatGPT said about webd:
 - Watch movie files stored on your computer from your phone.
 - Easy to share files, transfer files between Phone and PC.
 - Support files upload, drag-and-drop upload, folders upload.
-- ***[Download Binaries](https://github.com/webd90kb/webd/tree/master/webd/20240223)***
 - Site: https://webd.cf/webd/
 - 中文介绍 https://webd.cf/webd/webd.zh.html
 - Mail: zhngq2312@gmail.com
 
-![image](https://github.com/webd90kb/webd/blob/gh-pages/webd/webd_images/webd.icon.png)
+I'm not good at english or bullsh*t, so this is what ChatGPT said about webd:
+> Looking for a simple, secure, and efficient cloud storage solution? Check out Webd! Webd is a free, self-hosted web-based file storage platform that’s incredibly lightweight—less than 90KB! Host it on your own server for complete control over your data. With its user-friendly interface, no registration requirement, and secure sharing options, Webd makes file management a breeze. Easily upload, organize, and share files with unique links. Perfect for individuals and small businesses who prioritize privacy and ease of use. Visit Webd to get started!
+
 ### Screenshots
 ![image](https://github.com/webd90kb/webd/blob/gh-pages/webd/webd_images/image_10_upload.png)
 ![image](https://github.com/webd90kb/webd/blob/gh-pages/webd/webd_images/image_03_list.png)
