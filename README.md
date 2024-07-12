@@ -10,6 +10,7 @@ I'm not good at english or bullsh*t, so this is what ChatGPT said about webd:
 - Easy to share files, transfer files between Phone and PC.
 - Support files upload, drag-and-drop upload, folders upload.
 - Site: https://webd.cf/webd/
+- 中文介绍 https://webd.cf/webd/webd.zh.html
 - Mail: zhngq2312@gmail.com
 
 ![image](https://github.com/webd90kb/webd/blob/gh-pages/webd/webd_images/webd.icon.png)
