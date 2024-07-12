@@ -1,0 +1,43 @@
+body {
+	background-color: #CDF;
+	color: #116;
+	font-size: 1.05em;
+}
+div.boxed {
+	background-color: #AFD;
+	border: 1px dotted #535353;
+	width: fit-content; 
+	padding: 3px;
+	margin: 5px;
+}
+
+ul#ultop li {
+	margin: 3px;
+}
+ul#uldl li {
+	font-weight: bold;
+}
+
+ul#scrsht li {
+	margin-top: 6px;
+}
+
+
+a {
+	color: #036;
+}
+a:hover {
+	color: #C00;
+}
+
+img {
+	border: none;
+	display: block;
+}
+
+blockquote {
+    padding: 0 1em;
+    color: #636c76;
+    border-left: 0.25em solid #d0d7de;
+    background-color: #Cff;
+}

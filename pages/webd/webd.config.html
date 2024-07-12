@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="Webd Configuration File Description">
+<link rel="stylesheet" href="webd.css">
+<title>Webd Configuration File Description</title>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154988065-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154988065-1');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5586107219790222"
+     crossorigin="anonymous"></script>
+<body>
+
+<h3>Configuration File Description</h3>
+<ul>
+	<li>User permission configuration.<br>
+Each webd process instant supports three pairs of username/password settings with different permissions configurations,<br>
+and the guest's permissions can also be set independently, but all of them share the same shared path. So it's not a real multi-user supporting.<br>
+command line:
+<div class=boxed>
+-u auth_tag:user_name:pass_word<br>
+-g auth_tag</div>
+configuration file:
+<div class=boxed>
+Webd.User auth_tag user_name pass_word<br>
+Webd.Guest auth_tag</div>
+<p>The <em>'-g'</em> and <em>'Webd.Guest'</em> are used to set the guest's permissions.<br>
+The <em>'-u'</em> and <em>'Webd.User'</em> are used to set the permissions for a <em>'user_name pass_word'</em> combination.<br>
+Note: Same <em>'user_name'</em> with different <em>'pass_word'</em> can associate with different <em>'auth_tag'</em>.<br>
+This meaning same <em>'user_name'</em> login with different <em>'pass_word'</em> may have different permissions, very fun.</p>
+<p><em>'user_name'</em> and <em>'pass_word'</em> can be regular string.</p>
+<em>'auth_tag'</em> is a combination of one or more the below characters, each one stand for a permission type.
+	<div class=boxed>
+    <em>r: Access files.</em><br>
+    <em>l: List directories.</em><br>
+    <em>u: Upload file.</em><br>
+    <em>m: Delete, move, and rename files.</em><br>
+    <em>S: Show hidden files and directories.</em><br>
+    <em>T: Use webpage to play media files.</em><br>
+    <em>D: Add 'download' atrribute to file link.</em></div><br>
+For example, a command line parameter:
+<div class=boxed><em>-u rlum:user1:pass</em></div>
+or configuration file with below line:
+<div class=boxed><em>Webd.User rlum user1 pass</em></div>
+will give <em>'user1'</em> permissions contain of: r: Access files, l: List directories, u: Upload file, m: Delete move and rename files.<br><br>
+A command line parameter:
+<div class=boxed><em>-g 0</em></div>
+or configuration file with below line:
+<div class=boxed><em>Webd.Guest 0</em></div>
+will fully stop guest from accessing webd.<br><br>
+All the 'auth_tag' characters can be used independently, none of them depends on another.<br>
+So the 'auth_tag' combination can be very customizable and flexible.<br>
+If a user with 'auth_tag' contain only 'u', then this user can only upload file, has no other permissions, event not list files.</li><br>
+
+	<li>Share folder configuration.<br>
+<em>Webd.Root</em> or <em>-w</em> are used to set share path.<br>
+Example:
+<div class=boxed><em>-w /mnt/sdb1</em><br>
+<em>-w "D:\my share"</em><br>
+<em>Webd.Root /mnt/sdb1</em><br>
+<em>Webd.Root "D:\my share"</em></div></li><br>
+
+	<li>Webd listen addresses configuration.<br>
+<em>Webd.Listen</em> or <em>-l</em> are used to set the listen address, webd can listen multiple addresses.<br>
+Example:
+<div class=boxed><em>-l 9212</em><br>
+<em>-l 10.1.2.3:9212</em><br>
+<em>-l [::]:9212</em><br>
+<em>Webd.Listen 9212</em><br>
+<em>Webd.Listen 10.1.2.3:9212</em><br>
+<em>Webd.Listen [::]:9212</em></div></li><br>
+
+<li>More informations are descripted in file <em>'webd.conf'</em>.<br>
+
+</ul>
+
+
+</body>
+
+</html>

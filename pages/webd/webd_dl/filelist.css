@@ -1,0 +1,82 @@
+
+@font-face {
+	font-family: '_icon';
+	src: url('icon.woff');
+}
+
+:root {
+	--cl: #036;
+	--clcut: #79C;
+	--cledit: #FEC;
+	--clev: #F5F8F3;
+	--clod: #FFF;
+	--cltbh: #DFE6F3;
+	--hvacl: #C00;
+	--hvcl: #FFA;
+	--bd: 1px solid #A3B5DA;
+	--bdl: 1px solid #DDE;
+	--bdupld: 1px dashed var(--clup);
+	--fnt: 'Tahoma', 'Arial', '_icon';
+}
+
+body {
+	font-family: var(--fnt);
+	font-size: 14px;
+	color: var(--cl);
+}
+
+@supports (-webkit-touch-callout: none) {
+body {
+	cursor: pointer;
+}
+}
+
+body center {
+	margin-top: 10px;
+}
+
+a {
+	color: var(--cl);
+	text-decoration: none;
+}
+a:hover {
+	color: var(--hvacl);
+}
+
+tr:nth-child(even) {
+	background: var(--clev);
+}
+tr:nth-child(odd) {
+	background: var(--clod);
+}
+	
+table {
+	width: 100%;
+	border-collapse: collapse;
+	padding: 0px;
+	margin: 0px;
+}
+table td {
+	border-bottom: var(--bdl);
+	vertical-align: middle;
+	height: 25px;
+}
+table tr:nth-child(n+2) {
+	word-break: break-all;
+}
+
+table td.size {width: 45px;}
+table td.time {width: 104px;}
+
+table tr.tbh td {
+	background: var(--cltbh);
+}
+
+@media (hover:hover) {
+table tr:hover {
+	background-color: var(--hvcl);
+}
+}
+table tr:active {
+	background-color: var(--hvcl);
+}

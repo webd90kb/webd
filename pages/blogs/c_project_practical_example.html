@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keyword" content="C Project Makefile template">
+<title>Simple C Project: A Practical Example.</title>
+<link rel="stylesheet" href="prism.css">
+<link rel="stylesheet" href="blogs.css">
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154988065-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154988065-1');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5586107219790222"
+	 crossorigin="anonymous"></script>
+<body>
+
+<div class="navbar">
+	<a href="/">Index</a>
+	<a href="/webd/">webd</a>
+</div>
+
+<div class="container">
+
+		<div class="post">
+			<div class="post-title">Simple C Project: A Practical Example about Makefile.</div>
+			<div class="post-content">
+				<p><a href='https://github.com/webd90kb/webd/tree/master/codes/c_project_template'>code: https://github.com/webd90kb/webd/tree/master/codes/c_project_template</a></p>
+				<p>Creating a well-structured C project can greatly enhance code maintainability, readability, and reusability. This blog post will guide you through a practical example of a C project with a complete directory structure, including a functional Makefile.</p>
+
+				<h4>Simplified Makefile for Easy Customization</h4>
+				<p>Below is the essential Makefile for our C project. As you can see, it is very simple and easy to modify according to your code structure. The EXE section lists the executable files to be compiled, and the OBJ section contains the shared object files used by multiple executables.</p>
+				<pre><code class="language-shell">EXE=\
+exe1\
+a/exe2\
+a/exe3\
+
+OBJ=\
+mod1\
+liba/mod2\
+liba/mod3\
+
+include inc.mak</code></pre>
+				<p>The 'EXE' section lists the executable files that the project will compile. The backslashes (\) allow for multi-line definitions, making it easy to add or remove executables as needed.</p>
+				<p>The 'OBJ' section lists the object files that are shared across multiple executables. These object files contain common code that can be reused, reducing redundancy and simplifying maintenance.</p>
+				<p>The 'include inc.mak' line includes the inc.mak file, which contains additional configurations and generic rules for compiling and linking the project. By separating these rules into a different file, the main Makefile remains clean and focused on the specific targets and objects.</p>
+				<p>By structuring your Makefile in this way, you can easily add or remove executables and object files as your project evolves. This approach not only keeps the Makefile simple but also makes it highly adaptable to various project structures.</p>
+
+
+
+<h3 id="detailed-inc-mak-for-simplifying-the-main-makefile">Detailed <code>inc.mak</code> for Simplifying the Main Makefile</h3>
+<p>The <code>inc.mak</code> file contains the more complex rules and settings that allow the main <code>Makefile</code> to remain simple and easy to use. While it includes advanced Makefile syntax, you don&#39;t need to fully understand it to benefit from its functionality. Here&#39;s a brief overview to help you with potential customization and modifications.</p>
+<pre><code class="lang-makefile">ifneq ($(V), <span class="hljs-number">1</span>)
+Q := @
+endif
+
+# PREFIX ?= arm-none-eabi-
+CC    = $(Q)$(PREFIX)gcc
+SIZE    = $(Q)$(PREFIX)<span class="hljs-keyword">size</span>
+LD    = $(CC)
+
+CFLAGS = -Wall -Wextra -MMD
+LDFLAGS = -Wl,--gc-sections
+
+OBJ:=$(OBJ:=.o)
+
+ifeq ($(OS),Windows_NT)
+EXE:=$(EXE:=.exe)
+endif
+
+$(EXE): $(OBJ)
+
+all: $(EXE)
+.DEFAULT_GOAL := all
+
+ifeq ($(OS),Windows_NT)
+$(EXE): %.exe: %.o
+    @echo $@
+    $(LD) $^ $(LDFLAGS) -o $@
+    $(SIZE) $@
+<span class="hljs-keyword">else</span>
+$(EXE): %: %.o
+    @echo $@
+    $(LD) $^ $(LDFLAGS) -o $@
+    $(SIZE) $@
+endif
+
+%.o:%.c
+    @echo $&lt;
+    $(CC) $(CFLAGS) -c $&lt; -o $@
+
+
+.PHONY:clean
+clean:
+ifeq ($(OS),Windows_NT)
+    @rm -fv $(EXE:.exe=) $(EXE:.exe=.o) $(EXE:.exe=.d)
+<span class="hljs-keyword">else</span> #($(OS),Windows_NT)
+    @rm -fv $(EXE:=.o) $(EXE:=.d)
+endif #($(OS),Windows_NT)
+    @rm -fv $(EXE) $(OBJ) $(OBJ:.o=.d)
+
+
+ifeq ($(OS),Windows_NT)
+-include $(EXE:.exe=.d)
+<span class="hljs-keyword">else</span>
+-include $(EXE:=.d)
+endif
+-include $(OBJ:.o=.d)
+</code></pre>
+<h4 id="key-components-of-inc-mak-">Key Components of <code>inc.mak</code></h4>
+<ol>
+<li><p><strong>Silent Mode Toggle</strong>:</p>
+<pre><code class="lang-makefile"> ifne<span class="hljs-string">q ($(V)</span>, <span class="hljs-number">1</span>)
+ Q := @
+ endif
+</code></pre>
+<p> This part allows you to toggle the verbosity of the make process. By default, it runs silently.</p>
+</li>
+<li><p><strong>Compiler and Tools</strong>:</p>
+<pre><code class="lang-makefile"> CC    = $(Q)$(PREFIX)gcc
+ SIZE    = $(Q)$(PREFIX)<span class="hljs-keyword">size</span>
+ LD    = $(CC)
+</code></pre>
+<p> Sets up the compiler (<code>gcc</code>), size utility, and linker. The <code>PREFIX</code> variable can be used to specify a toolchain prefix.</p>
+</li>
+<li><p><strong>Compiler and Linker Flags</strong>:</p>
+<pre><code class="lang-makefile"> <span class="hljs-attr">CFLAGS</span> = -Wall -Wextra -MMD
+ <span class="hljs-attr">LDFLAGS</span> = -Wl,--gc-sections
+</code></pre>
+<p> Defines the flags for compiling and linking.</p>
+<p><strong><code>-MMD</code></strong>: This is a GCC-specific flag used to automatically generate <code>.d</code> dependency files. These files contain dependency information that <code>make</code> uses to determine which files need to be recompiled. By using <code>-MMD</code>, you don&#39;t have to manually handle dependency tracking, which simplifies the build process and ensures that your dependencies are always up to date.</p>
+</li>
+
+
+
+
+
+<li><p><strong>Object and Executable File Naming</strong>:</p>
+<pre><code class="lang-makefile"> OBJ:=$(OBJ:=.o)
+
+ ife<span class="hljs-string">q ($(OS)</span>,Windows_NT)
+ EXE:=$(EXE:=.exe)
+ endif
+</code></pre>
+<p> Ensures that object files have a <code>.o</code> extension and, on Windows, executables have a <code>.exe</code> extension.</p>
+</li>
+<li><p><strong>Build Rules</strong>:</p>
+<pre><code class="lang-makefile"> $(EXE): $(OBJ)
+
+ all: $(EXE)
+ .DEFAULT_GOAL := all
+
+ ifeq ($(OS),Windows_NT)
+ $(EXE): %.exe: %.o
+     @echo $@
+     $(LD) $^ $(LDFLAGS) -o $@
+     $(SIZE) $@
+ <span class="hljs-keyword">else</span>
+ $(EXE): %: %.o
+     @echo $@
+     $(LD) $^ $(LDFLAGS) -o $@
+     $(SIZE) $@
+ endif
+</code></pre>
+<p> Defines how to build the executables from the object files. There are specific rules for Windows to account for the <code>.exe</code> extension.</p>
+</li>
+<li><p><strong>Compiling Source Files</strong>:</p>
+<pre><code class="lang-makefile"> %.o:%.c
+     @echo $&lt;
+     $(CC) $(CFLAGS) -c $&lt; -o $@
+</code></pre>
+<p> A generic rule for compiling <code>.c</code> files into <code>.o</code> object files.</p>
+</li>
+<li><p><strong>Clean Target</strong>:</p>
+<pre><code class="lang-makefile"> .<span class="hljs-symbol">PHONY:</span>clean
+ <span class="hljs-symbol">clean:</span>
+ ifeq ($(OS),Windows_NT)
+     @rm -fv $(<span class="hljs-symbol">EXE:</span>.exe=) $(<span class="hljs-symbol">EXE:</span>.exe=.o) $(<span class="hljs-symbol">EXE:</span>.exe=.d)
+ <span class="hljs-keyword">else</span>
+     @rm -fv $(<span class="hljs-symbol">EXE:</span>=.o) $(<span class="hljs-symbol">EXE:</span>=.d)
+ endif
+     @rm -fv $(EXE) $(OBJ) $(<span class="hljs-symbol">OBJ:</span>.o=.d)
+</code></pre>
+<p> Defines a <code>clean</code> target to remove executables and object files. It includes specific rules for Windows.</p>
+</li>
+<li><p><strong>Dependency Inclusion</strong>:</p>
+<pre><code class="lang-makefile"> ifeq ($(OS),Windows_NT)
+ -<span class="ruby"><span class="hljs-keyword">include</span> $(<span class="hljs-symbol">EXE:</span>.exe=.d)
+</span> else
+ -<span class="ruby"><span class="hljs-keyword">include</span> $(<span class="hljs-symbol">EXE:</span>=.d)
+</span> endif
+ -<span class="ruby"><span class="hljs-keyword">include</span> $(<span class="hljs-symbol">OBJ:</span>.o=.d)</span>
+</code></pre>
+<p> Includes dependency files to manage build dependencies automatically.</p>
+</li>
+</ol>
+<p>By using <code>inc.mak</code>, you can manage complex build rules and configurations separately, keeping the main <code>Makefile</code> clean and straightforward. This setup allows for easy customization and adaptation to different project needs.</p>
+
+
+
+			</div>
+		</div>
+
+</div>
+
+<script src="prism.js"></script>
+</body>
+</html>

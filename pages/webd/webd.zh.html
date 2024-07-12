@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=yes">
+<meta name="description" content="简易网盘 webd 文件上传 文件分享 流播放">
+<meta name="keyword" content="簡易網盤 webd 文件上傳 文件分享 流播放">
+<title>輕量級簡易網盤 webd</title>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154988065-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154988065-1');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5586107219790222"
+     crossorigin="anonymous"></script>
+<body>
+<pre>
+webd 网盘介紹：
+  轻量级(self-hosted)自建网盘软件
+  程序仅 60 ~ 90 KB，含 server 端，无其它依赖，速度快资源占用低
+  纯便携软件，解压即用
+  支持 Windows、Linux、OpenWrt、Armbian
+  界面简洁易用，无繁琐设置，支持移动设备
+
+
+<a href='webd_dl/'>下載地址</a>
+
+Email: zhngq2312@gmail.com
+Telegram Group: https://t.me/webd_zh
+
+
+命令行快速运行
+  ./webd -w /mnt/sda1 -u rlum:user:pass
+  webd.exe -w D:\sharedata -u rlum:user:pass
+
+安装：
+  从上述网址下载 webd-win32.7z 解压到合适位置，进入目录双击运行 tools.cmd
+  依提示添加快捷方式并创建自动启动即完成安装。
+
+配置：
+  用记事本打开 webd.conf 参考后续说明修改配置，修改后需要重启以便生效。
+
+启动和使用：
+  双击桌面 webd 图标启动，或重启后自动启动。
+  双击托盘图标会调用浏览器打开网盘，点右上角二维码图标可生成二维码供移动设备使用。
+  网盘内的视频类文件可直接播放，不支持的格式需复制视频地址到其它播放器播放。
+  需要剪切或删除文件时，点击所在行空白处或日期与大小，变为选中状态，然后操作新出现的按钮。
+  重命名文件：在未选中状态下双击文件所在行的空白处会进入重命名状态。
+  按住 Ctrl 或 Shift 点上传按钮会进入文件夹上传模式。
+  可拖拽文件以及文件夹上传，可复制文件以及文件夹后用粘贴方式(Ctrl+V)上传。
+  在新版 Chrome 下可截屏或复制图片内容后粘贴(Ctrl+V)上传，可以拖拽其它网页的图片上传。
+
+
+配置文件：
+  webd 启动时会在当前目录和 /etc 下查找并加载 webd.conf 文件。
+  编辑 webd.conf 去掉行首的 # 可让该行配置生效。
+  含有空格的路径需用英文双引号包起来。
+
+  Webd.Root 指定网盘文件的路径
+    更改后需移动原 web 目录下的 .Trash 文件夹到新路径下，否则无法删除文件
+  Webd.Listen 监听端口或特定的地址，支持多个，可配置成 [::]:9212 来同时监听 IPv6 和 IPv4
+  Webd.Hide 隐藏托盘图标, 无参数，该项仅支持 Windows
+  Webd.User 设置用户的权限、用户名和密码，共支持三个用户，但共享同一目录
+    
+	比如 Webd.User rlumS user1 pass1 表示设置 user1 的密码为 pass1 ，具有 r、l、u、m、S 五种权限tag。
+
+    权限tag详细列表如下:
+        r 访问文件
+        l 获取文件列表
+        u 上传文件
+        m 删除移动重命名文件[夹]
+        S 显示以点开头的隐藏文件
+        D 给文件列表中的文件链接加上 download 属性, 从而在浏览器中点击后会直接下载而不是在线打开
+        T 使用网页播放媒体文件(可保存播放进度),
+        只有将安装包 web 目录下的 .player.htm 文件放到配置项 Webd.Root 或参数 -w 指向的目录中才可使用T标记
+
+	以上权限可以任意灵活组合, 列举几种特殊的情况:
+        1. 不含 l 但有 r 的情况, 表示不能获取文件列表, 但在知晓文件路径的情况下可直接访问文件.
+           反之,含有l但没有r则表示能获取列表但无法访问文件.
+        2. 含有 u 但没有 r 或 l, 表示可以上传, 但上传后看不到文件列表, 也无法再次下载.
+        3. 含有 u r 但没有 l, 表示可以上传, 上传后无法获取文件列表, 但可输入路径直接下载.
+        3. 含有 u l 但没有 r, 表示可以上传, 可以获取文件列表, 但无法下载.
+
+  Webd.Guest 设置未登录的访客的权限(未设置时默认为 rl), 与普通用户的权限tag组合的用法相同, 设置成 0 表示禁用访客
+
+  Webd.Browser 用于指定自定义的浏览器路径, 可解决某些情况下双击托盘图标无法弹出浏览器的问题。
+
+命令行参数对应的配置项:
+  -c 指定配置文件, 不再使用默认路径的
+  -h Webd.Hide
+  -B Webd.Browser
+  -l Webd.Listen 可指定多个
+  -w Webd.Root
+  -g Webd.Guest
+  -u 类似 Webd.User, 需把空格用冒号替代, 类似 -u rlum:user1:pass1
+     配置文件和命令行参数一共能设置共享相同目录的三个用户
+
+Linux、OpenWrt、Armbian 等平台上安装 webd
+  
+  webd-linux-x86_64.tar.gz 用于普通 x86_64 linux 发行版
+  webd-linux-aarch64.tar.gz webd-linux-armv7.tar.gz 使用于 arm linux 平台
+  webd-openwrt-x86_64.tar.gz 用于安装了 OpenWrt 的普通 PC 
+  webd-android-*** 用于通过使用 adb 命令在 android 设备上运行
+  webd-linux-mipsel-uclibc.tar.gz 适用于 Padavan 等固件
+  webd-openwrt-XXXXX.tar.gz 适用于不同硬件的 OpenWrt 路由器
+  带有 uClibc 后缀的适用于一些旧版固件, 也可用于光猫ADSL猫等设备
+
+  比如 K2P OpenWrt 固件位于: https://downloads.openwrt.org/snapshots/targets/ramips/mt7621/
+  那么它应当使用 webd-openwrt-mt7621.tar.gz 安装包
+  
+  ar71xx ath79 固件共用 webd-openwrt-ar71xx.tar.gz 安装包
+  mt7621 mt76x8 固件共用 webd-openwrt-mt7621.tar.gz 安装包
+
+  新版的openwrt的软件包的名称中增加了CPU构架名称
+  例如: webd-YYYYMMDD-openwrt-mips_24kc.ath79.tar.gz 其中 mips_24kc 是CPU构架名称
+  理论上只要CPU构架名称相同即可通用, 比如相同构架的 lantiq/xrx200 和 ath79 可共用软件包.
+
+  # 以 mt7621 设备为例，可通过如下命令安装 webd
+  # 安装包名字变量
+  pkg=webd-openwrt-ramips-mt7620.tar.gz
+  # 下载对应的软件包并解压
+  tar -xzvf ${pkg}
+  cp -fv webd/webd /usr/bin/
+  cp -fv webd/webd.conf /etc/
+  rm -rf /tmp/webd /tmp/${pkg} # 删除无用的残留文件
+  # 假设要把硬盘挂载目录 /mnt/sda1 当作网盘目录
+  mkdir -pv mkdir -p /mnt/sda1/.Trash # 创建回收站文件夹，否则不能删除文件
+
+  # 根据前面 [配置文件] 环节的说明编辑 /etc/webd.conf
+  # 设置 Webd.Root 为 /mnt/sda1 以及设置用户名密码权限等
+
+  # 添加开机脚本, 注意不要漏掉引号
+  echo "/usr/bin/webd &>/dev/null &" >> /etc/rc.local
+
+  # 还可以不用配置文件而是用命令行参数方式添加开机脚本
+  echo "/usr/bin/webd -w /mnt/sda1 -u rlum:用户名:密码 -u rl:用户名2:密码2 &>/dev/null &" >> /etc/rc.local
+
+  # 重启路由器生效
+  reboot
+
+  # 局域网内访问 http://路由器IP:9212 即可使用.
+
+已知Bug或不支持的情况
+	不支持上传文件到jffs2文件系统上.
+
+Extra:
+<a href='https://github.com/Hyy2001X/AutoBuild-Packages/tree/master/luci-app-webd'>webd LUCI by Hyy2001X</a>
+
+</pre>
+</body>
+</html>
+

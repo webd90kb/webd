@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="Webd Installation">
+<link rel="stylesheet" href="webd.css">
+<title>Webd Installation</title>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154988065-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154988065-1');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5586107219790222"
+     crossorigin="anonymous"></script>
+<body>
+
+
+<h3>Webd Installation for Windows.</h3>
+<ol>
+	<li>Download the packages with name like webd-***-win32.7z</li>
+	<li>Extract it to a proper localtion.</li>
+	<li>Edit the file webd.conf inside the extracted folder with a text editor according to Configuration File Description.</li>
+	<li>Run the webd.exe to start webd.</li>
+	<li>DoubleClick the tray icon will open the web interface of webd in default browser.</li>
+	<li>The tools.cmd is used for setting up desktop shortcut and automatic startup.<br><br>
+	<strong>Note:</strong><br>
+The web interface of webd <b>only</b> work with newer version of Chrome, Edge and Firefox.<br>
+Every time after editing the webd.conf, webd must be restarted to take effect.<br></li>
+</ol>
+
+<h3>Webd Installation for Linux.</h3>
+<ol>
+	<li>Download the pacages with name like webd-***-x86_64-pc-linux-gnu.tar.gz<br>
+If using some linux distributions with musl libc, then webd-***-x86_64-linux-musl.tar.gz should be used.</li>
+	<li>Use command <em>"tar xzvf webd-***-x86_64-pc-linux-gnu.tar.gz"</em> to extract it, and move the webd folder to <em>/opt</em> (or some other path).</li>
+	<li>Edit the file webd.conf inside the extracted folder with a text editor according to <a href='webd.config.html'>Configuration File Description.</a></li>
+	<li>Change current dir to webd folder and run webd like below commands.
+<div class=boxed>cd /opt/webd; ./webd</div>
+Or run webd in background:<br>
+<div class=boxed>cd /opt/webd; nohup ./webd &gt;/dev/null &amp;</div>
+	</li>
+	<li>By adding below content to /etc/rc.local, webd will automatic start after system boot.
+<div class=boxed>/opt/webd/webd -c /opt/webd/webd.conf -w /mnt &gt;/dev/null 2&gt;&amp;1 &amp;</div>
+Option <em>'-c /opt/webd/webd.conf'</em> means use <em>/opt/webd/webd.conf</em> as configuration file.<br>
+Option <em>'-w /mnt'</em> means sharing folder <em>/mnt</em> on web, change it to other path if needed.<br><br>
+If <em>'-w /mnt'</em> omitted, the option <em>'Webd.Root'</em> in webd.conf will be used.<br></li>
+</ol>
+
+<h3>Webd Installation for OpenWRT.</h3>
+<ol>
+	<li>Choose the right package, since there are so many of them?<br>
+Run 'cat /etc/openwrt_release' in shell to get DISTRIB_ARCH and DISTRIB_TARGET, for example:
+<div class=boxed>
+<em>DISTRIB_TARGET='ramips/mt7621'</em><br>
+<em>DISTRIB_ARCH='mipsel_24kc'</em></div>
+Simply put, packages that have <em>'mipsel'</em> and <em>'ramips'</em> in their names should be chosen to use.<br>
+In theory, all the packages with a <em>'mipsel'</em> in it's name can be run on the device.<br>
+But the <em>'libc'</em> may be various in OpenWRT with different version/configuration.<br>
+Run <em>'/lib/libc.so'</em> in shell can get the libc type.<br>
+Many of them use <em>'musl'</em>, and some use <em>'uclibc'</em>. So <em>'musl'</em> or <em>'uclibc'</em> should also match the packages name.<br>
+If the 'mt7621' part match the package name will be even better, but that is not necessary.<br><br></li>
+	<li>The rest steps are same as Linux.</li>
+</ol>
+
+
+<h3>Webd Installation for Android.</h3>
+<ol>
+	<li>There are two webd packages for Android devices.
+<div class=boxed>
+<em>webd-***-armv7-linux-androideabi.tar.gz</em><br>
+<em>webd-***-aarch64-linux-android.tar.gz</em></div>
+Older devices should use the one with <em>'armv7'</em>, others should use the one with <em>'aarch64'</em>.</li>
+	<li>Untar the package, use below command to put the bianry file to the Android device.
+<div class=boxed><em>adb push webd /data/local/tmp</em></div>
+	</li>
+	<li>Use 'adb shell' to 'login' the Android device and run below commands:
+<div class=boxed><em>cd /data/local/tmp<br>
+chmod 555 webd<br>
+killall webd # stop previous process.<br>
+ifconfig # get the ip address for later use.<br>
+mkdir -pv /sdcard/.Trash # all deleted files will be put into this folder.<br>
+nohup /data/local/tmp/webd -g0 -u rlumS:username:pass123 -w /sdcard &amp;&gt; /dev/null &amp;</em></div>
+The <em>'username'</em> and <em>'pass123'</em> should be changed to other values for safty reason.<br>
+<p>Or just use the scripts <em>'inst_webd.cmd'</em>(for windows) or <em>'inst_webd.sh'</em>(for linux) to install webd to Android device.<br>
+The value <em>'user1'</em> and <em>'pass1'</em> in the script should be changed to other values before run the script, for safty reason.<br>
+The path <em>'/data/local/tmp'</em> that webd installed to, <strong>should not</strong> be changed, other path has no executable permissions.<br></p></li>
+</ol>
+
+<ul>
+	<li>If the Android device restarted, the webd process will not start automatically.<br>
+The start command part in the aforementioned steps should be re-executed.</li>
+	<li>There are other ways to run webd on Android, such as use <a href="https://termux.dev">Termux</a> as a linux environment.</li>
+</ul>
+
+
+</body>
+
+</html>

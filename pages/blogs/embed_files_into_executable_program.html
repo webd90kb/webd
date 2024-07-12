@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keyword" content="C Embed resource files into executable program">
+<title>Embed the resource files into the executable program.</title>
+<link rel="stylesheet" href="prism.css">
+<link rel="stylesheet" href="blogs.css">
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154988065-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154988065-1');
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5586107219790222"
+	 crossorigin="anonymous"></script>
+<body>
+
+<div class="navbar">
+	<a href="/">Index</a>
+	<a href="/webd/">webd</a>
+</div>
+
+<div class="container">
+
+
+		<div class="post">
+			<div class="post-title">Embed the resource files into the executable program.</div>
+			<div class="post-content">
+				<p><a href='https://github.com/webd90kb/webd/tree/master/codes/scripts/embed_file_c'>code: https://github.com/webd90kb/webd/tree/master/codes/scripts/embed_file_c</a></p>
+				<p>Embedding resource files into the executable program ensures that all necessary resources are included, simplifying distribution and preventing issues with missing files. It also enhances security by making it harder to modify or tamper with the resources.</p>
+				<p>Text files can be easily embedded using a char *str = "xxxx" approach, but it's important to consider generality. This method is straightforward for small text files, but for larger files or different types of resources (like images, sounds, or complex data structures), a more flexible and scalable embedding solution is required. Ensuring that the embedding process supports various file types and sizes while maintaining efficiency and ease of access is crucial for robust application development.</p>
+				<p>Fortunately, tools like <i>hexdump</i> and <i>sed</i> can be used to generate C language-compatible formats for embedding. <i>hexdump</i> converts binary files into a hexadecimal format, which <i>sed</i> can then process to create a C array or other structures. This method allows for the embedding of a wide variety of resource files directly into the source code, making them accessible at runtime. This approach ensures that even large or complex resources can be efficiently embedded and managed within C programs.</p>
+
+				<pre><code class="language-shell">$ echo 12345 >> test.txt
+$ echo abcdd >> test.txt
+$ hexdump -C test.txt
+00000000  31 32 33 34 35 0a 61 62  63 64 65 0a              |12345.abcde.|
+0000000c
+$ hexdump -v -e '32/1 "_x%02X" "\n"' "test.txt" | sed 's/_/\\/g; s/\\x  //g; s/.*/"&"/'
+"\x31\x32\x33\x34\x35\x0A\x61\x62\x63\x64\x65\x0A"</code></pre>
+
+				<p>Here's a brief explanation of the steps to embed a text file into a C program using hexdump and sed:</p>
+				<ul><li><code>hexdump -v -e '32/1 "_x%02X" "\n"' "test.txt"</code> converts the binary data to a series of <code>\xHH</code> format hexadecimal bytes, with each byte represented by <code>HH</code>.</li><li><code>sed 's/_/\\/g; s/\\x //g; s/.*/"&amp;"/'</code> uses <code>sed</code> to format the output correctly for inclusion in a C source file:<ul><li><code>s/_/\\/g</code> replaces underscores <code>_</code> with backslashes <code>\</code>.</li><li><code>s/\\x //g</code> removes any unwanted spaces.</li><li><code>s/.*/"&amp;"/</code> surrounds the entire string with double quotes <code>"</code>.</li></ul></li></ul>
+				<p>This string can be directly included in a C program as a char array:</p>
+				<pre><code class="lang-c">const char *embedded_text = "\x31\x32\x33\x34\x35\x0A\x61\x62\x63\x64\x65\x0A";</code></pre>
+
+				<p>However, this method only allows for embedding a single file at a time, and it does not provide information about the file's length. To handle multiple files and their lengths, a more sophisticated approach is needed. This involves defining a structure to store the file data and its size, and potentially using arrays or other data structures to manage multiple files.</p>
+
+				<p>To fully automate the process of embedding multiple files from a directory into a C program, you can use a script that traverses the directory, converts each file into a C-compatible format, and generates the necessary C code. </p>
+
+				<pre><code class="language-shell">#!/bin/bash
+# From https://webd.cf/blogs/embed_files_into_executable_program.html
+# https://github.com/webd90kb/webd/tree/master/codes/scripts/embed_file_c
+dir2c(){
+	file2c_str(){
+		hexdump -v -e '32/1 "_x%02X" "\n"' "${1}" | sed 's/_/\\/g; s/\\x  //g; s/.*/"&"/'
+	}
+	local z=$(mktemp); trap "rm ${z}.*" exit
+	echo "static const char _data_enc[] =  " > "${z}.1"
+	cat > "${z}.2" << "EOF"
+static const struct {
+	const char *path;
+	uint32_t off;
+	uint32_t len:15;
+} _data_enc_lst[] = {
+EOF
+
+	local off=0 f; for f in ${1}/*{,/*{,/*{,/*{,/*}}}}; do
+		[[ -f "${f}" ]] || continue
+		local len=$(stat -Lc %s "${f}" 2>/dev/null)
+		echo "	{ .path = \"${f}\", .off = ${off}, .len = ${len}, }," >> "${z}.3"
+		echo "// ${f} len: ${len}" >> "${z}.1"
+		: $((off += len))
+		file2c_str ${f} >> "${z}.1"
+	done
+	sort "${z}.3" >> "${z}.2"
+	echo -e "};\n//total size: ${off}\n" >> "${z}.2"
+	
+	echo -e "#if(_DATA_ENC_INC == 1)\n#undef _DATA_ENC_INC\n"
+	cat "${z}.2" "${z}.1"
+	echo -e ";\n#endif\n"
+}
+
+dir2c_test(){
+	mkdir -pv 1/{a,b,c/d}
+	echo 12345 >> 1/test.txt
+	echo abcdd >> 1/test.txt
+	cp -v 1/test.txt 1/a
+	cp -v 1/test.txt 1/b
+	cp -v 1/test.txt 1/c/d
+	dir2c 1 > _data_enc.c
+	gcc embed_file.c -o embed_file
+	./embed_file
+}
+
+"${@}"</code></pre>
+
+
+		<p>To use this script, save it to a file (e.g., `embed_file_c.sh`), make it executable (`chmod +x embed_file_c.sh`), and then run it with two arguments:</p>
+
+		<pre><code class="language-shell">./embed_file_c.sh dir2c /path/to/directory > _data_enc.c</code></pre>
+		<pre><code class="lang-c">#if(_DATA_ENC_INC == 1)
+#undef _DATA_ENC_INC
+
+static const struct {
+        const char *path;
+        uint32_t off;
+        uint32_t len:15;
+} _data_enc_lst[] = {
+        { .path = "1/a/test.txt", .off = 0, .len = 12, },
+        { .path = "1/b/test.txt", .off = 12, .len = 12, },
+        { .path = "1/c/d/test.txt", .off = 24, .len = 12, },
+};
+//total size: 36
+
+static const char _data_enc[] =
+// 1/a/test.txt len: 12
+"\x31\x32\x33\x34\x35\x0A\x61\x62\x63\x64\x65\x0A"
+// 1/b/test.txt len: 12
+"\x31\x32\x33\x34\x35\x0A\x61\x62\x63\x64\x65\x0A"
+// 1/c/d/test.txt len: 12
+"\x31\x32\x33\x34\x35\x0A\x61\x62\x63\x64\x65\x0A"
+;
+#endif</code></pre>	
+
+		<p>Replace `/path/to/directory` with the directory containing the files you want to embed, and `_data_enc.c` with the desired name of the output C file.</p>
+
+		<p>This script automates the process of embedding multiple files into a C program. It generates C code that includes the hexadecimal representation of each file, along with metadata such as file paths and sizes. This approach simplifies the management and access of embedded resources within C programs, making it easier to include and distribute files as part of the application.</p>
+
+		<p>Now it's much easier to use `_data_enc.c` in your code: search embedded files by paths, then got pointers to their data, and their lengths.</p>
+
+		<pre><code class="lang-c">#include &lt;stdio.h&gt;
+#include &lt;stdint.h&gt;
+int main(int argc, char *argv[]) {
+	#define _DATA_ENC_INC 1
+	#include "_data_enc.c"
+	for (int i = 0; i &lt; sizeof(_data_enc_lst)/sizeof(_data_enc_lst[0]); ++i) {
+		printf("%3u, %3u, %s\n", _data_enc_lst[i].off, _data_enc_lst[i].len, _data_enc_lst[i].path);
+		// &_data_enc[_data_enc_lst[i].off] is the data ptr, use it by need
+	}
+	return 0;
+}</code></pre>	
+
+			</div>
+		</div>
+
+</div>
+
+<script src="prism.js"></script>
+</body>
+</html>
