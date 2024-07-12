@@ -9,6 +9,7 @@ I'm not good at english or bullsh*t, so this is what ChatGPT said about webd:
 - Watch movie files stored on your computer from your phone.
 - Easy to share files, transfer files between Phone and PC.
 - Support files upload, drag-and-drop upload, folders upload.
+- ***[Download Binaries](https://github.com/webd90kb/webd/tree/master/webd/20240223)***
 - Site: https://webd.cf/webd/
 - 中文介绍 https://webd.cf/webd/webd.zh.html
 - Mail: zhngq2312@gmail.com
