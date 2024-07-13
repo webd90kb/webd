@@ -16,6 +16,7 @@ ul#ultop li {
 }
 ul#uldl li {
 	font-weight: bold;
+	margin: 3px;
 }
 
 ul#scrsht li {
