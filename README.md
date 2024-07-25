@@ -10,7 +10,7 @@
 - Watch movie files stored on your computer from your phone.
 - Easy to share files, transfer files between Phone and PC.
 - Support files upload, drag-and-drop upload, folders upload.
-- Site: https://webd.cf/webd/
+- Documents: https://webd.cf/webd/
 - 中文介绍 https://webd.cf/webd/webd.zh.html
 - Mail: zhngq2312@gmail.com
 
