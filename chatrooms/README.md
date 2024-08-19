@@ -1,4 +1,4 @@
-### Free Encrypted Private Chatrooms.
+### [Free Encrypted Private Chatrooms.](https://cnt2.cf/groups/login.html)
 - Create your private chatrooms, all data are encrypted before send to server.
 ### No Registration Needed.
 - Just pick up some random groupname&password and nickname to login.
