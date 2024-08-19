@@ -18,3 +18,12 @@ RoomId = hashB(group_name, group_pass, salt_B));
 - If only two in chatroom, just click the phone button to video call another one.
 - If there's more than two, first click one's name to enter private chat mode, then click the phone button.
 - Also in private chat mode, text message only send to the one target, and the text color is different.
+
+### Screenshots
+![image](https://github.com/webd90kb/webd/blob/master/chatrooms/01_login.png)
+![image](https://github.com/webd90kb/webd/blob/master/chatrooms/02_share.png)
+![image](https://github.com/webd90kb/webd/blob/master/chatrooms/03_share_login.png)
+![image](https://github.com/webd90kb/webd/blob/master/chatrooms/04_chat.png)
+![image](https://github.com/webd90kb/webd/blob/master/chatrooms/05_call.png)
+![image](https://github.com/webd90kb/webd/blob/master/chatrooms/06_video.png)
+![image](https://github.com/webd90kb/webd/blob/master/chatrooms/07_video.png)
