@@ -1,10 +1,11 @@
-### [Simple Chat Room with Video Chat Support https://cnt2.cf/groups/login.html](https://cnt2.cf/groups/login.html)
+### [Simple Chat Rooms with Video Chat Support https://cnt2.cf/groups/login.html](https://cnt2.cf/groups/login.html)
 
-### No Registration Needed.
-- Just pick up some random groupname&password and nickname to login.
-- Share the same groupname&password to others to let them join in the same chatroom.
+### No Registration Needed, easy to create your own chatroom.
+- Just pick up some groupname&password and nickname to create a chatroom and login.
+- Share the same groupname&password (or link) to others to let them join in the same chatroom.
 - Same groupname with a different password will lead to a different chatroom.
 - Chat contents encrypted at frontend.
+
 ### Video Call Supported.
 - If only two in chatroom, just click the phone button to video call another one.
 - If there's more than two, first click one's name to enter private chat mode, then click the phone button.
