@@ -1,5 +1,4 @@
 ### [Chat Room with WebRTC Video Call Support https://cnt2.cf/groups/login.html](https://cnt2.cf/groups/login.html)
-- Mail: zhngq2312@gmail.com
 - This chat room takes a different approach—there are no predefined or public room lists. Create a room and then share the group name & password or a link with others to join.
 - If don’t have anyone to chat with right away, open a new browser tab or use another device to join the room just created.
 - I can assure that the server will never have access to any chat content. The front-end code is lightweight, and if have the tools or want to analyze it with AI:
