@@ -1,7 +1,7 @@
 ### Webd a 90KB lightweight web file sharing/managing server. (Not OpenSource)
 
-### [Download Binaries](https://github.com/webd90kb/webd/tree/master/docs/webd/webd_dl/20240223)
-[![image](https://github.com/webd90kb/webd/blob/master/docs/webd/webd_images/webd.icon.png)](https://github.com/webd90kb/webd/tree/master/docs/webd/webd_dl/20240223)
+### [Download Binaries](https://webd90kb.github.io/webd/webd/webd_dl/20240223/)
+[![image](https://github.com/webd90kb/webd/blob/master/docs/webd/webd_images/webd.icon.png)](https://webd90kb.github.io/webd/webd/webd_dl/20240223/)
 
 
 - It's a tiny httpd/webserver, file list server, file manage server.
