@@ -1,7 +1,7 @@
 ### Webd a 90KB lightweight web file sharing/managing server. (Not OpenSource)
 
-### [Download Binaries](https://webd.cf/webd/webd_dl/20240223/)
-[![image](https://github.com/webd90kb/webd/blob/master/docs/webd/webd_images/webd.icon.png)](https://webd.cf/webd/webd_dl/20240223/)
+### [Download Binaries](https://github.com/webd90kb/webd/tree/master/docs/webd/webd_dl/20240223)
+[![image](https://github.com/webd90kb/webd/blob/master/docs/webd/webd_images/webd.icon.png)](https://github.com/webd90kb/webd/tree/master/docs/webd/webd_dl/20240223)
 
 
 - It's a tiny httpd/webserver, file list server, file manage server.
@@ -10,8 +10,8 @@
 - Watch movie files stored on your computer from your phone.
 - Easy to share files, transfer files between Phone and PC.
 - Support files upload, drag-and-drop upload, folders upload.
-- Documents: https://webd.cf/webd/
-- 中文介绍 https://webd.cf/webd/webd.zh.html
+- Documents: https://webd90kb.github.io/webd/
+- 中文介绍 https://webd90kb.github.io/webd/webd.zh.html
 - Mail: zhngq2312@gmail.com
 
 Slogan:
