@@ -11,7 +11,7 @@
 - Easy to share files, transfer files between Phone and PC.
 - Support files upload, drag-and-drop upload, folders upload.
 - Documents: https://webd90kb.github.io/webd/
-- 中文介绍 https://webd90kb.github.io/webd/webd.zh.html
+- 中文介绍 https://webd90kb.github.io/webd/webd/webd.zh.html
 - Mail: zhngq2312@gmail.com
 
 Slogan:
